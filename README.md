@@ -1,7 +1,7 @@
 # 📝 To-Do App Backend
 
 ## 📌 Overview
-The **To-Do App Backend** is a Node.js and Express-based REST API that provides user authentication, task management, and user role management. It allows users to register and log in using **JWT authentication** and perform CRUD operations on their tasks. Additionally, an admin can manage users by viewing all registered users and deleting specific users.
+This **To-Do App Backend** is a Node.js and Express-based REST API that provides user authentication, task management, and user role management. It allows users to register and log in using **JWT authentication** and perform CRUD operations on their tasks. Additionally, an admin can manage users by viewing all registered users and deleting specific users.
 
 ## 🚀 Features
 - **User Authentication**: Users can register and log in using **JWT authentication**.

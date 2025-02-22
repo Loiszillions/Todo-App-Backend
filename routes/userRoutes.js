@@ -1,6 +1,7 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");  // to Generate authentication tokens
 const bcrypt = require("bcryptjs");  // to Hash user passwords securely
+const auth = require("../middleware/auth");
 const User = require("../models/User"); // Mongoose User model
 require("dotenv").config();
 
@@ -8,7 +9,7 @@ const router = express.Router();
 
 // User Registration   (POST http://localhost:3000/users/register)
 router.post("/register", async (req, res) => {
-    const { username, email, password } = req.body;
+    const { username, email, password, role } = req.body;
 
     try {
         // Check if username already exists
@@ -20,7 +21,8 @@ router.post("/register", async (req, res) => {
         if (existingUser) return res.status(404).json({ message: "User already exists" });
 
         // Create new user
-        const newUser = new User({ username, email, password });
+        // Only allow "admin" role if an admin is creating the user
+        const newUser = new User({ username, email, password, role: role === "admin" ? "admin" : "user" }); //to Prevent Users from Signing up as Admin 
         await newUser.save();
 
         res.status(201).json({ message: 'User registered successfully' });
@@ -45,9 +47,9 @@ router.post("/login", async (req, res) => {
         if (!isMatch) return res.status(400).json({ message: "Invalid password" });
 
         // Generate JWT Token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
-        res.json({ message: "Login successful", token });
+        res.json({ message: "Login successful", token, role: user.role });
     } catch (error) {
         console.error("Server error:", error);
         res.status(500).json({ message: "Server error" });

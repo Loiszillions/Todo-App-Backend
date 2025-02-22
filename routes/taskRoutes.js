@@ -23,7 +23,7 @@ router.get("/", auth, async (req, res) => {
     res.status(201).json({tasks})
 });
 
-// search For all completed OR pending tasks for logged-in user   (GET http://localhost:3000/tasks/search?status=pending) or http://localhost:3000/tasks/search?status=completed
+// search For all completed Or pending tasks for logged-in user   (GET http://localhost:3000/tasks/search?status=pending) or http://localhost:3000/tasks/search?status=completed
 router.get("/search", auth, async (req, res) => {
     const { status } = req.query;  // Get status from query params
 
@@ -70,7 +70,5 @@ router.delete("/:id", auth, async (req, res) => {
 
     res.status(201).json({message: 'Task Deleted Successfully'})
 });
-
-
 
 module.exports = router;

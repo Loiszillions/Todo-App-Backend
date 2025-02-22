@@ -19,6 +19,8 @@ connectDB();
 // Routes
 app.use("/users", require("./routes/userRoutes"));
 app.use("/tasks", require("./routes/taskRoutes"));
+app.use("/admin", require("./routes/adminRoutes"));
+
 
 app.get("/", (req, res) => {
     res.send("ToDo App is running...");

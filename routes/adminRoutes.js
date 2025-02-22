@@ -17,8 +17,8 @@ router.get("/users", auth, adminAuth, async (req, res) => {
     }
 });
 
-// Delete a user (Admin only) - DELETE http://localhost:3000/admin/:id
-router.delete("/:id", auth, adminAuth, async (req, res) => {
+// Delete a user (Admin only) - DELETE http://localhost:3000/admin/users/:id
+router.delete("/users/:id", auth, adminAuth, async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);
         if (!user) return res.status(404).json({ message: "User not found" });
